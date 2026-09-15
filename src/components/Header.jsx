@@ -67,10 +67,24 @@ export function Header({
             </div>
           </div>
 
-          {/* Room Badge for Mobile */}
-          <div className="flex md:hidden items-center gap-1.5 bg-slate-900/90 border border-slate-800 rounded-lg px-2.5 py-1 text-xs">
+          {/* Room Badge & Share for Mobile */}
+          <div className="flex md:hidden items-center gap-1.5 bg-slate-900/90 border border-slate-800 rounded-lg p-1 pl-2.5 text-xs">
             <span className="text-slate-400">Room:</span>
-            <span className="font-mono text-cyan-300 font-bold max-w-[80px] truncate">{roomId}</span>
+            <span className="font-mono text-cyan-300 font-bold max-w-[70px] truncate">{roomId}</span>
+            <button
+              onClick={onCopyLink}
+              className="p-1 rounded bg-cyan-500/10 hover:bg-cyan-500/20 text-cyan-300 border border-cyan-500/30 text-xs font-medium"
+              title="Copy Share Link"
+            >
+              {copySuccess ? <Check className="w-3.5 h-3.5 text-emerald-400" /> : <Copy className="w-3.5 h-3.5" />}
+            </button>
+            <button
+              onClick={onOpenQrModal}
+              className="p-1 rounded bg-slate-800 text-slate-300 hover:text-cyan-400 text-xs font-medium"
+              title="Show QR Code"
+            >
+              <QrCode className="w-3.5 h-3.5" />
+            </button>
           </div>
         </div>
 

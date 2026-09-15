@@ -9,6 +9,7 @@ import { ActivityFeed } from './components/ActivityFeed';
 import { 
   getRoomIdFromUrl, 
   setRoomIdInUrl, 
+  getShareableRoomUrl,
   createSyncEngine 
 } from './utils/syncEngine';
 
@@ -261,7 +262,7 @@ export default function App() {
   };
 
   const handleCopyLink = () => {
-    const url = `${window.location.origin}${window.location.pathname}#room=${roomId}`;
+    const url = getShareableRoomUrl(roomId);
     navigator.clipboard.writeText(url).then(() => {
       setCopySuccess(true);
       setTimeout(() => setCopySuccess(false), 2500);

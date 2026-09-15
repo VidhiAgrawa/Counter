@@ -4,6 +4,16 @@ import mqtt from 'mqtt';
 // Uses BroadcastChannel for local tabs & MQTT over WebSockets for internet cross-device sync
 
 const PUBLIC_MQTT_BROKER = 'wss://broker.emqx.io:8084/mqtt';
+export const DEPLOYED_BASE_URL = 'https://counter-sync.vercel.app';
+
+export function getShareableRoomUrl(roomId) {
+  if (typeof window === 'undefined') return `${DEPLOYED_BASE_URL}/#room=${roomId}`;
+  const isLocal = window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1';
+  const baseUrl = isLocal 
+    ? DEPLOYED_BASE_URL 
+    : `${window.location.origin}${window.location.pathname}`.replace(/\/$/, '');
+  return `${baseUrl}/#room=${roomId}`;
+}
 
 export function getRoomIdFromUrl() {
   const hash = window.location.hash.replace('#', '');

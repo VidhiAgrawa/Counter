@@ -2,6 +2,7 @@ import React, { useEffect, useRef } from 'react';
 import { motion } from 'framer-motion';
 import { QrCode, Copy, Check, ExternalLink } from 'lucide-react';
 import QRCode from 'qrcode';
+import { getShareableRoomUrl } from '../utils/syncEngine';
 
 export function QrCodeModal({ 
   show, 
@@ -11,7 +12,7 @@ export function QrCodeModal({
   onCopyLink 
 }) {
   const canvasRef = useRef(null);
-  const roomUrl = `${window.location.origin}${window.location.pathname}#room=${roomId}`;
+  const roomUrl = getShareableRoomUrl(roomId);
 
   useEffect(() => {
     if (show && canvasRef.current) {
@@ -85,6 +86,15 @@ export function QrCodeModal({
               </>
             )}
           </button>
+          <a
+            href={roomUrl}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="p-2.5 rounded-xl bg-slate-800 hover:bg-slate-700 text-slate-200 hover:text-white transition-all flex items-center justify-center"
+            title="Open Room in New Tab"
+          >
+            <ExternalLink className="w-4 h-4" />
+          </a>
         </div>
       </motion.div>
     </div>
